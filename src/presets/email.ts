@@ -21,8 +21,8 @@ export interface EmailPresetOptions {
  * - Optimizes output for email clients
  *
  * @example
- * import { createAstroRuntime } from '@skibidoo/container-runtime';
- * import { emailPreset } from '@skibidoo/container-runtime/presets/email';
+ * import { createAstroRuntime } from '@casoon/fragment-renderer';
+ * import { emailPreset } from '@casoon/fragment-renderer/presets/email';
  *
  * const preset = emailPreset({ provider: 'sendgrid' });
  * const runtime = createAstroRuntime({

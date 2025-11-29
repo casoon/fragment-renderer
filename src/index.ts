@@ -1,4 +1,4 @@
-// Main entry point for @skibidoo/container-runtime
+// Main entry point for @casoon/fragment-renderer
 
 export { createAstroRuntime } from './runtime.js';
 

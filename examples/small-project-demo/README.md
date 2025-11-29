@@ -22,7 +22,7 @@ npm run dev
 
 ```typescript
 // src/pages/api/faq.ts
-import { createAstroRuntime } from '@skibidoo/container-runtime';
+import { createAstroRuntime } from '@casoon/fragment-renderer';
 import FAQ from '../components/FAQ.astro';
 
 const runtime = createAstroRuntime();
@@ -45,7 +45,7 @@ export async function GET({ request }) {
 
 ```typescript
 // src/pages/api/products/[page].ts
-import { createAstroRuntime } from '@skibidoo/container-runtime';
+import { createAstroRuntime } from '@casoon/fragment-renderer';
 import ProductList from '../../components/ProductList.astro';
 
 const runtime = createAstroRuntime();

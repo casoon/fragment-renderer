@@ -29,8 +29,8 @@ npm run deploy
 ## Example
 
 ```typescript
-import { createAstroRuntime } from '@skibidoo/container-runtime';
-import { createCloudflareHandler } from '@skibidoo/container-runtime/adapters/cloudflare';
+import { createAstroRuntime } from '@casoon/fragment-renderer';
+import { createCloudflareHandler } from '@casoon/fragment-renderer/adapters/cloudflare';
 import Widget from './components/Widget.astro';
 
 const runtime = createAstroRuntime();

@@ -1,7 +1,7 @@
 {
-  "name": "@skibidoo/container-runtime",
+  "name": "@casoon/fragment-renderer",
   "version": "0.1.0",
-  "description": "Universal Astro Container Runtime - render Astro components outside of pages. Zero-config, multi-channel, with presets for AHA-Stack, Email, and CMS.",
+  "description": "Universal Astro Fragment Renderer - render Astro components as HTML fragments for HTMX, email, and multi-channel output.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -81,12 +81,12 @@
     "typescript": "^5.3.0",
     "vitest": "^1.0.0"
   },
-  "homepage": "https://github.com/casoon/skibidoo-container-runtime#readme",
+  "homepage": "https://github.com/casoon/fragment-renderer#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/casoon/skibidoo-container-runtime.git"
+    "url": "git+https://github.com/casoon/fragment-renderer.git"
   },
   "bugs": {
-    "url": "https://github.com/casoon/skibidoo-container-runtime/issues"
+    "url": "https://github.com/casoon/fragment-renderer/issues"
   }
 }

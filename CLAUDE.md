@@ -1,8 +1,8 @@
-# @skibidoo/container-runtime – Project Description & Technical Guidelines
+# @casoon/fragment-renderer – Project Description & Technical Guidelines
 
 ## Project Goal
 
-The @skibidoo/container-runtime is a universal utility runtime for rendering Astro components outside of classic Astro pages. It's designed for both small marketing/content projects and large headless/multi-channel architectures – without config flags or mode switching.
+The @casoon/fragment-renderer is a universal utility runtime for rendering Astro components outside of classic Astro pages. It's designed for both small marketing/content projects and large headless/multi-channel architectures – without config flags or mode switching.
 
 The runtime provides:
 - **Zero-Config** – Ready to use immediately, no setup required
@@ -31,7 +31,7 @@ The runtime provides:
 ## Project Structure
 
 ```
-@skibidoo/container-runtime/
+@casoon/fragment-renderer/
 ├── src/
 │   ├── index.ts              # Entry point with exports
 │   ├── runtime.ts            # Main implementation
@@ -65,7 +65,7 @@ The runtime provides:
 ### Simple Usage
 
 ```typescript
-import { createAstroRuntime } from '@skibidoo/container-runtime';
+import { createAstroRuntime } from '@casoon/fragment-renderer';
 import MyComponent from './MyComponent.astro';
 
 const runtime = createAstroRuntime();

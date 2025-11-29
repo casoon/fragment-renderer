@@ -1,4 +1,4 @@
-# @skibidoo/container-runtime
+# @casoon/fragment-renderer
 
 Universal Astro Container Runtime - render Astro components outside of classic Astro pages.
 
@@ -16,7 +16,7 @@ Universal Astro Container Runtime - render Astro components outside of classic A
 ## Installation
 
 ```bash
-npm install @skibidoo/container-runtime
+npm install @casoon/fragment-renderer
 ```
 
 **Peer Dependency:** Requires `astro >= 4.0.0`
@@ -24,7 +24,7 @@ npm install @skibidoo/container-runtime
 ## Quick Start
 
 ```typescript
-import { createAstroRuntime } from '@skibidoo/container-runtime';
+import { createAstroRuntime } from '@casoon/fragment-renderer';
 import MyComponent from './MyComponent.astro';
 
 const runtime = createAstroRuntime();
@@ -41,8 +41,8 @@ const response = await runtime.renderToResponse(MyComponent, { title: 'Hello' })
 ### AHA-Stack Preset (Astro + HTMX + Alpine.js)
 
 ```typescript
-import { createAstroRuntime } from '@skibidoo/container-runtime';
-import { ahaStackPreset } from '@skibidoo/container-runtime/presets/aha-stack';
+import { createAstroRuntime } from '@casoon/fragment-renderer';
+import { ahaStackPreset } from '@casoon/fragment-renderer/presets/aha-stack';
 
 const runtime = createAstroRuntime(ahaStackPreset({ locale: 'de' }));
 
@@ -54,7 +54,7 @@ htmx.getResponseHeaders({ trigger: 'cartUpdated' });
 ### Email Preset
 
 ```typescript
-import { emailPreset } from '@skibidoo/container-runtime/presets/email';
+import { emailPreset } from '@casoon/fragment-renderer/presets/email';
 
 const runtime = createAstroRuntime(emailPreset({ provider: 'sendgrid' }));
 const email = await runtime.getService('email');
@@ -65,7 +65,7 @@ const { html, subject } = await email.renderEmail('order-confirmation', props);
 ### CMS Preset
 
 ```typescript
-import { cmsPreset } from '@skibidoo/container-runtime/presets/cms';
+import { cmsPreset } from '@casoon/fragment-renderer/presets/cms';
 
 const runtime = createAstroRuntime(cmsPreset({
   blocks: [
@@ -79,10 +79,10 @@ const html = await cms.renderBlocks(blocks);
 
 ## Adapters
 
-- **Node.js** - `@skibidoo/container-runtime/adapters/node`
-- **Vercel** - `@skibidoo/container-runtime/adapters/vercel`
-- **Cloudflare** - `@skibidoo/container-runtime/adapters/cloudflare`
-- **CLI** - `@skibidoo/container-runtime/adapters/cli`
+- **Node.js** - `@casoon/fragment-renderer/adapters/node`
+- **Vercel** - `@casoon/fragment-renderer/adapters/vercel`
+- **Cloudflare** - `@casoon/fragment-renderer/adapters/cloudflare`
+- **CLI** - `@casoon/fragment-renderer/adapters/cli`
 
 ## License
 
@@ -90,5 +90,5 @@ MIT
 
 ## Links
 
-- [GitHub](https://github.com/casoon/skibidoo-container-runtime)
-- [Issues](https://github.com/casoon/skibidoo-container-runtime/issues)
+- [GitHub](https://github.com/casoon/fragment-renderer)
+- [Issues](https://github.com/casoon/fragment-renderer/issues)

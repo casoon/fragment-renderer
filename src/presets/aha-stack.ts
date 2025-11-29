@@ -19,8 +19,8 @@ export interface AHAStackPresetOptions {
  * - Partial HTML responses
  *
  * @example
- * import { createAstroRuntime } from '@skibidoo/container-runtime';
- * import { ahaStackPreset } from '@skibidoo/container-runtime/presets/aha-stack';
+ * import { createAstroRuntime } from '@casoon/fragment-renderer';
+ * import { ahaStackPreset } from '@casoon/fragment-renderer/presets/aha-stack';
  *
  * const preset = ahaStackPreset({ locale: 'de' });
  * const runtime = createAstroRuntime({

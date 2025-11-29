@@ -32,8 +32,8 @@ node preview-server.js
 ## Example
 
 ```typescript
-import { createAstroRuntime } from '@skibidoo/container-runtime';
-import { emailPreset } from '@skibidoo/container-runtime/presets/email';
+import { createAstroRuntime } from '@casoon/fragment-renderer';
+import { emailPreset } from '@casoon/fragment-renderer/presets/email';
 import WelcomeEmail from './templates/WelcomeEmail.astro';
 
 const preset = emailPreset({ provider: 'sendgrid' });

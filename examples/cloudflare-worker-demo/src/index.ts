@@ -1,10 +1,10 @@
-import { createAstroRuntime } from '@skibidoo/container-runtime';
+import { createAstroRuntime } from '@casoon/fragment-renderer';
 import {
   createCloudflareHandler,
   parseWorkerRequest,
   type CloudflareEnv,
   type ExecutionContext
-} from '@skibidoo/container-runtime/adapters/cloudflare';
+} from '@casoon/fragment-renderer/adapters/cloudflare';
 
 // Import components
 // Note: In a real setup, these would be actual Astro components

@@ -23,7 +23,7 @@ node generate-og.js
 ## Example
 
 ```typescript
-import { createAstroRuntime } from '@skibidoo/container-runtime';
+import { createAstroRuntime } from '@casoon/fragment-renderer';
 import OGCard from './templates/OGCard.astro';
 
 const runtime = createAstroRuntime({

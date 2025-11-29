@@ -24,8 +24,8 @@ node render-blocks.js
 ## Example
 
 ```typescript
-import { createAstroRuntime } from '@skibidoo/container-runtime';
-import { cmsPreset } from '@skibidoo/container-runtime/presets/cms';
+import { createAstroRuntime } from '@casoon/fragment-renderer';
+import { cmsPreset } from '@casoon/fragment-renderer/presets/cms';
 
 // Preset with block registrations
 const preset = cmsPreset({
