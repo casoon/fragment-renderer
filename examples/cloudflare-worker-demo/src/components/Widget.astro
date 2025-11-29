@@ -1,0 +1,45 @@
+---
+interface Props {
+  title: string;
+  content: string;
+  theme?: 'light' | 'dark';
+}
+
+const { title, content, theme = 'light' } = Astro.props;
+---
+
+<div class={`widget ${theme}`}>
+  <h3>{title}</h3>
+  <p>{content}</p>
+</div>
+
+<style>
+  .widget {
+    padding: 1.5rem;
+    border-radius: 8px;
+    font-family: system-ui, sans-serif;
+  }
+
+  .widget.light {
+    background: #ffffff;
+    color: #1a1a2e;
+    border: 1px solid #e5e7eb;
+  }
+
+  .widget.dark {
+    background: #1a1a2e;
+    color: #ffffff;
+  }
+
+  h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    color: inherit;
+    opacity: 0.8;
+  }
+</style>

@@ -1,0 +1,132 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl?: string;
+  htmxTarget?: string;
+}
+
+const {
+  currentPage,
+  totalPages,
+  baseUrl = '/api/items',
+  htmxTarget = '#content'
+} = Astro.props;
+
+const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+const showEllipsis = totalPages > 7;
+
+function getVisiblePages() {
+  if (!showEllipsis) return pages;
+
+  const visible: (number | 'ellipsis')[] = [];
+
+  if (currentPage <= 4) {
+    visible.push(...pages.slice(0, 5));
+    visible.push('ellipsis');
+    visible.push(totalPages);
+  } else if (currentPage >= totalPages - 3) {
+    visible.push(1);
+    visible.push('ellipsis');
+    visible.push(...pages.slice(-5));
+  } else {
+    visible.push(1);
+    visible.push('ellipsis');
+    visible.push(currentPage - 1, currentPage, currentPage + 1);
+    visible.push('ellipsis');
+    visible.push(totalPages);
+  }
+
+  return visible;
+}
+
+const visiblePages = getVisiblePages();
+---
+
+<nav class="pagination" aria-label="Seitennavigation">
+  <button
+    class="pagination-btn prev"
+    disabled={currentPage === 1}
+    hx-get={`${baseUrl}/${currentPage - 1}`}
+    hx-target={htmxTarget}
+    hx-swap="innerHTML"
+  >
+    &larr; Zurück
+  </button>
+
+  <div class="pagination-pages">
+    {visiblePages.map((page) => (
+      page === 'ellipsis' ? (
+        <span class="ellipsis">...</span>
+      ) : (
+        <button
+          class={`pagination-btn page ${page === currentPage ? 'active' : ''}`}
+          hx-get={`${baseUrl}/${page}`}
+          hx-target={htmxTarget}
+          hx-swap="innerHTML"
+          aria-current={page === currentPage ? 'page' : undefined}
+        >
+          {page}
+        </button>
+      )
+    ))}
+  </div>
+
+  <button
+    class="pagination-btn next"
+    disabled={currentPage === totalPages}
+    hx-get={`${baseUrl}/${currentPage + 1}`}
+    hx-target={htmxTarget}
+    hx-swap="innerHTML"
+  >
+    Weiter &rarr;
+  </button>
+</nav>
+
+<style>
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+
+  .pagination-pages {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .pagination-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #e5e7eb;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .pagination-btn:hover:not(:disabled) {
+    background: #f3f4f6;
+  }
+
+  .pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .pagination-btn.active {
+    background: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+  }
+
+  .pagination-btn.page {
+    min-width: 40px;
+  }
+
+  .ellipsis {
+    padding: 0.5rem;
+    color: #9ca3af;
+  }
+</style>

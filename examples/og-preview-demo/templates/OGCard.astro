@@ -1,0 +1,166 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  author?: string;
+  date?: string;
+  bgColor?: string;
+  accentColor?: string;
+  logo?: string;
+}
+
+const {
+  title,
+  description = '',
+  author = '',
+  date = '',
+  bgColor = '#1a1a2e',
+  accentColor = '#3b82f6',
+  logo = ''
+} = Astro.props;
+---
+
+<html>
+  <head>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 1200px;
+        height: 630px;
+        display: flex;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: {bgColor};
+        color: white;
+        overflow: hidden;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 60px;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, {bgColor} 0%, #16213e 100%);
+      }
+
+      .accent-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 8px;
+        background: {accentColor};
+      }
+
+      .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .title {
+        font-size: 64px;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 24px;
+        background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .description {
+        font-size: 28px;
+        color: #a0aec0;
+        line-height: 1.4;
+        max-width: 900px;
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 40px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .author-info {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .author-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: {accentColor};
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 600;
+      }
+
+      .author-details {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .author-name {
+        font-size: 22px;
+        font-weight: 600;
+      }
+
+      .date {
+        font-size: 18px;
+        color: #718096;
+      }
+
+      .logo {
+        font-size: 32px;
+        font-weight: 800;
+        color: {accentColor};
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="accent-bar"></div>
+
+      <div class="content">
+        <h1 class="title">{title}</h1>
+        {description && <p class="description">{description}</p>}
+      </div>
+
+      <div class="footer">
+        <div class="author-info">
+          {author && (
+            <>
+              <div class="author-avatar">
+                {author.charAt(0).toUpperCase()}
+              </div>
+              <div class="author-details">
+                <span class="author-name">{author}</span>
+                {date && <span class="date">{date}</span>}
+              </div>
+            </>
+          )}
+        </div>
+
+        {logo ? (
+          <img src={logo} alt="Logo" style="height: 48px;" />
+        ) : (
+          <div class="logo">MyBlog</div>
+        )}
+      </div>
+    </div>
+  </body>
+</html>

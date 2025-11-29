@@ -1,0 +1,86 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  backgroundImage?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  align?: 'left' | 'center' | 'right';
+}
+
+const {
+  title,
+  subtitle = '',
+  backgroundImage = '',
+  ctaText = '',
+  ctaHref = '#',
+  align = 'center'
+} = Astro.props;
+
+const alignClass = `text-${align}`;
+---
+
+<section
+  class={`hero ${alignClass}`}
+  style={backgroundImage ? `background-image: url(${backgroundImage})` : ''}
+>
+  <div class="hero-content">
+    <h1>{title}</h1>
+    {subtitle && <p class="subtitle">{subtitle}</p>}
+    {ctaText && (
+      <a href={ctaHref} class="cta-button">
+        {ctaText}
+      </a>
+    )}
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a1a2e;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 4rem 2rem;
+  }
+
+  .hero-content {
+    max-width: 800px;
+  }
+
+  .text-left { text-align: left; }
+  .text-center { text-align: center; }
+  .text-right { text-align: right; }
+
+  h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin: 0 0 1rem;
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    color: #a0aec0;
+    margin: 0 0 2rem;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: #3b82f6;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+
+  .cta-button:hover {
+    background: #2563eb;
+  }
+</style>

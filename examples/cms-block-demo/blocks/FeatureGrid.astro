@@ -1,0 +1,110 @@
+---
+interface Feature {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  features: Feature[];
+  columns?: 2 | 3 | 4;
+}
+
+const {
+  title = '',
+  subtitle = '',
+  features,
+  columns = 3
+} = Astro.props;
+---
+
+<section class="feature-grid">
+  {(title || subtitle) && (
+    <div class="header">
+      {title && <h2>{title}</h2>}
+      {subtitle && <p class="subtitle">{subtitle}</p>}
+    </div>
+  )}
+
+  <div class={`grid columns-${columns}`}>
+    {features.map((feature) => (
+      <div class="feature-card">
+        <div class="icon">{feature.icon}</div>
+        <h3>{feature.title}</h3>
+        <p>{feature.description}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .feature-grid {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+    color: #6b7280;
+    margin: 0;
+  }
+
+  .grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .columns-2 { grid-template-columns: repeat(2, 1fr); }
+  .columns-3 { grid-template-columns: repeat(3, 1fr); }
+  .columns-4 { grid-template-columns: repeat(4, 1fr); }
+
+  @media (max-width: 768px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .feature-card {
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+  }
+
+  .feature-card p {
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.6;
+  }
+</style>

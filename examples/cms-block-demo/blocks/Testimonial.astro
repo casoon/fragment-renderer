@@ -1,0 +1,103 @@
+---
+interface Props {
+  quote: string;
+  author: string;
+  role?: string;
+  company?: string;
+  avatar?: string;
+}
+
+const {
+  quote,
+  author,
+  role = '',
+  company = '',
+  avatar = ''
+} = Astro.props;
+---
+
+<section class="testimonial">
+  <blockquote>
+    <p class="quote">"{quote}"</p>
+
+    <footer class="author-info">
+      {avatar ? (
+        <img src={avatar} alt={author} class="avatar" />
+      ) : (
+        <div class="avatar placeholder">
+          {author.charAt(0).toUpperCase()}
+        </div>
+      )}
+
+      <div class="author-details">
+        <cite class="author-name">{author}</cite>
+        {(role || company) && (
+          <span class="author-role">
+            {role}{role && company ? ' bei ' : ''}{company}
+          </span>
+        )}
+      </div>
+    </footer>
+  </blockquote>
+</section>
+
+<style>
+  .testimonial {
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+
+  blockquote {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .quote {
+    font-size: 1.75rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin: 0 0 2rem;
+  }
+
+  .author-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .avatar.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .author-details {
+    text-align: left;
+  }
+
+  .author-name {
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  .author-role {
+    display: block;
+    font-size: 0.875rem;
+    opacity: 0.8;
+  }
+</style>
