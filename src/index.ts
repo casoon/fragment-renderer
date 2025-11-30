@@ -5,7 +5,9 @@ export { createAstroRuntime } from './runtime.js';
 // Re-export all types
 export type {
   AstroRuntime,
+  ComponentFilter,
   ComponentLoader,
+  ComponentMeta,
   Preset,
   PresetConfig,
   RegistryEntry,
