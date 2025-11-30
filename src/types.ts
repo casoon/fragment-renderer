@@ -49,8 +49,36 @@ export interface RegistryEntry {
   id: string;
   /** Loader function */
   loader: ComponentLoader;
-  /** Optional metadata */
-  meta?: Record<string, unknown>;
+  /** Optional metadata (category, tags, etc.) */
+  meta?: ComponentMeta;
+}
+
+/**
+ * Component metadata for categorization and filtering
+ */
+export interface ComponentMeta {
+  /** Component category (e.g., 'form', 'layout', 'data') */
+  category?: string;
+  /** Tags for filtering (e.g., ['input', 'interactive']) */
+  tags?: string[];
+  /** Human-readable description */
+  description?: string;
+  /** Custom metadata */
+  [key: string]: unknown;
+}
+
+/**
+ * Filter options for listing components
+ */
+export interface ComponentFilter {
+  /** Filter by category */
+  category?: string;
+  /** Filter by tag (component must have this tag) */
+  tag?: string;
+  /** Filter by multiple tags (component must have all tags) */
+  tags?: string[];
+  /** Custom filter function */
+  predicate?: (entry: RegistryEntry) => boolean;
 }
 
 /**
@@ -120,13 +148,29 @@ export interface AstroRuntime {
   // ─────────────────────────────────────────────────────────────────
 
   /**
-   * Register a component in the registry
+   * Register a single component in the registry
    */
   registerComponent(
     id: string,
     loader: ComponentLoader,
-    meta?: Record<string, unknown>,
+    meta?: ComponentMeta,
   ): void;
+
+  /**
+   * Register multiple components at once (bulk registration)
+   * 
+   * @example
+   * runtime.registerComponents([
+   *   { id: 'ui-button', loader: () => import('./Button.astro') },
+   *   { id: 'ui-input', loader: () => import('./Input.astro') },
+   * ]);
+   */
+  registerComponents(entries: RegistryEntry[]): void;
+
+  /**
+   * Check if a component is registered
+   */
+  hasComponent(id: string): boolean;
 
   /**
    * Get a component from the registry
@@ -134,9 +178,25 @@ export interface AstroRuntime {
   getComponent(id: string): RegistryEntry | undefined;
 
   /**
-   * List all registered components
+   * List registered components, optionally filtered
+   * 
+   * @example
+   * // All components
+   * runtime.listComponents();
+   * 
+   * // By category
+   * runtime.listComponents({ category: 'form' });
+   * 
+   * // By tag
+   * runtime.listComponents({ tag: 'interactive' });
    */
-  listComponents(): RegistryEntry[];
+  listComponents(filter?: ComponentFilter): RegistryEntry[];
+
+  /**
+   * Unregister a component from the registry
+   * @returns true if component was removed, false if not found
+   */
+  unregisterComponent(id: string): boolean;
 
   /**
    * Render a component by ID

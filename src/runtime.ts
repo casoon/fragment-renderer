@@ -1,7 +1,9 @@
 import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 import type {
   AstroRuntime,
+  ComponentFilter,
   ComponentLoader,
+  ComponentMeta,
   RenderByIdOptions,
   RenderContext,
   RegistryEntry,
@@ -39,9 +41,7 @@ class AstroRuntimeImpl implements AstroRuntime {
 
     // Register initial components
     if (config.components) {
-      for (const entry of config.components) {
-        this.registry.set(entry.id, entry);
-      }
+      this.registerComponents(config.components);
     }
 
     // Register initial services
@@ -97,7 +97,7 @@ class AstroRuntimeImpl implements AstroRuntime {
   registerComponent(
     id: string,
     loader: ComponentLoader,
-    meta?: Record<string, unknown>,
+    meta?: ComponentMeta,
   ): void {
     if (!id || typeof id !== "string") {
       throw new Error("Component ID must be a non-empty string");
@@ -109,12 +109,72 @@ class AstroRuntimeImpl implements AstroRuntime {
     this.registry.set(id, { id, loader, meta });
   }
 
+  registerComponents(entries: RegistryEntry[]): void {
+    if (!Array.isArray(entries)) {
+      throw new Error("entries must be an array of RegistryEntry");
+    }
+
+    for (const entry of entries) {
+      if (!entry.id || typeof entry.id !== "string") {
+        throw new Error("Each entry must have a non-empty string id");
+      }
+      if (typeof entry.loader !== "function") {
+        throw new Error(`Component "${entry.id}" must have a loader function`);
+      }
+
+      this.registry.set(entry.id, entry);
+    }
+  }
+
+  hasComponent(id: string): boolean {
+    return this.registry.has(id);
+  }
+
   getComponent(id: string): RegistryEntry | undefined {
     return this.registry.get(id);
   }
 
-  listComponents(): RegistryEntry[] {
-    return Array.from(this.registry.values());
+  listComponents(filter?: ComponentFilter): RegistryEntry[] {
+    const entries = Array.from(this.registry.values());
+
+    if (!filter) {
+      return entries;
+    }
+
+    return entries.filter((entry) => {
+      // Filter by category
+      if (filter.category && entry.meta?.category !== filter.category) {
+        return false;
+      }
+
+      // Filter by single tag
+      if (filter.tag) {
+        const tags = entry.meta?.tags ?? [];
+        if (!tags.includes(filter.tag)) {
+          return false;
+        }
+      }
+
+      // Filter by multiple tags (must have all)
+      if (filter.tags && filter.tags.length > 0) {
+        const entryTags = entry.meta?.tags ?? [];
+        const hasAllTags = filter.tags.every((tag) => entryTags.includes(tag));
+        if (!hasAllTags) {
+          return false;
+        }
+      }
+
+      // Custom predicate filter
+      if (filter.predicate && !filter.predicate(entry)) {
+        return false;
+      }
+
+      return true;
+    });
+  }
+
+  unregisterComponent(id: string): boolean {
+    return this.registry.delete(id);
   }
 
   async renderToString(options: RenderByIdOptions): Promise<string> {
@@ -203,6 +263,16 @@ class AstroRuntimeImpl implements AstroRuntime {
  *   ]
  * });
  * const html = await runtime.renderToString({ componentId: 'hero', props: { ... } });
+ *
+ * @example
+ * // Bulk registration with filtering
+ * import { uiComponents } from '@casoon/skibidoo-ui';
+ * 
+ * const runtime = createAstroRuntime();
+ * runtime.registerComponents(uiComponents);
+ * 
+ * // List only form components
+ * const formComponents = runtime.listComponents({ category: 'form' });
  */
 export function createAstroRuntime(config?: RuntimeConfig): AstroRuntime {
   return new AstroRuntimeImpl(config);
