@@ -1,23 +1,18 @@
 ---
 interface Feature {
-  icon: string;
-  title: string;
-  description: string;
+	icon: string;
+	title: string;
+	description: string;
 }
 
 interface Props {
-  title?: string;
-  subtitle?: string;
-  features: Feature[];
-  columns?: 2 | 3 | 4;
+	title?: string;
+	subtitle?: string;
+	features: Feature[];
+	columns?: 2 | 3 | 4;
 }
 
-const {
-  title = '',
-  subtitle = '',
-  features,
-  columns = 3
-} = Astro.props;
+const { title = "", subtitle = "", features, columns = 3 } = Astro.props;
 ---
 
 <section class="feature-grid">

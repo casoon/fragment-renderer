@@ -1,15 +1,15 @@
-import type { Preset, PresetConfig } from '../types.js';
+import type { Preset, PresetConfig } from "../types.js";
 
 /**
  * Email preset configuration options
  */
 export interface EmailPresetOptions {
-  /** Default locale (default: 'en') */
-  locale?: string;
-  /** Email provider (for provider-specific optimizations) */
-  provider?: 'generic' | 'sendgrid' | 'mailgun' | 'ses' | 'postmark';
-  /** Inline CSS styles (default: true) */
-  inlineStyles?: boolean;
+	/** Default locale (default: 'en') */
+	locale?: string;
+	/** Email provider (for provider-specific optimizations) */
+	provider?: "generic" | "sendgrid" | "mailgun" | "ses" | "postmark";
+	/** Inline CSS styles (default: true) */
+	inlineStyles?: boolean;
 }
 
 /**
@@ -30,87 +30,96 @@ export interface EmailPresetOptions {
  *   services: preset.services,
  * });
  */
-export const emailPreset: Preset = (options?: EmailPresetOptions): PresetConfig => {
-  const {
-    locale = 'en',
-    provider = 'generic',
-    inlineStyles = true,
-  } = options ?? {};
+export const emailPreset: Preset = (
+	options?: EmailPresetOptions,
+): PresetConfig => {
+	const {
+		locale = "en",
+		provider = "generic",
+		inlineStyles = true,
+	} = options ?? {};
 
-  return {
-    baseContext: {
-      locale,
-      channel: 'email',
-      provider,
-      inlineStyles,
-    },
-    components: [],
-    services: [
-      {
-        name: 'email',
-        factory: (runtime) => ({
-          /**
-           * Render an email template with subject extraction
-           */
-          async renderEmail(
-            componentId: string,
-            props: Record<string, unknown>
-          ): Promise<{
-            html: string;
-            text?: string;
-            subject?: string;
-          }> {
-            const html = await runtime.renderToString({
-              componentId,
-              props,
-              context: { channel: 'email' },
-            });
+	return {
+		baseContext: {
+			locale,
+			channel: "email",
+			provider,
+			inlineStyles,
+		},
+		components: [],
+		services: [
+			{
+				name: "email",
+				factory: (runtime) => ({
+					/**
+					 * Render an email template with subject extraction
+					 */
+					async renderEmail(
+						componentId: string,
+						props: Record<string, unknown>,
+					): Promise<{
+						html: string;
+						text?: string;
+						subject?: string;
+					}> {
+						const html = await runtime.renderToString({
+							componentId,
+							props,
+							context: { channel: "email" },
+						});
 
-            // Extract subject from <title> tag if present
-            const subjectMatch = html.match(/<title>([^<]+)<\/title>/i);
-            const subject = subjectMatch?.[1];
+						// Extract subject from <title> tag if present
+						const subjectMatch = html.match(/<title>([^<]+)<\/title>/i);
+						const subject = subjectMatch?.[1];
 
-            return {
-              html,
-              subject,
-            };
-          },
+						return {
+							html,
+							subject,
+						};
+					},
 
-          /**
-           * Get email-safe CSS properties
-           * Returns a subset of CSS that works across email clients
-           */
-          getSafeStyles(): string[] {
-            return [
-              'background-color',
-              'border',
-              'border-radius',
-              'color',
-              'font-family',
-              'font-size',
-              'font-weight',
-              'height',
-              'line-height',
-              'margin',
-              'padding',
-              'text-align',
-              'text-decoration',
-              'vertical-align',
-              'width',
-            ];
-          },
+					/**
+					 * Get email-safe CSS properties
+					 * Returns a subset of CSS that works across email clients
+					 */
+					getSafeStyles(): string[] {
+						return [
+							"background-color",
+							"border",
+							"border-radius",
+							"color",
+							"font-family",
+							"font-size",
+							"font-weight",
+							"height",
+							"line-height",
+							"margin",
+							"padding",
+							"text-align",
+							"text-decoration",
+							"vertical-align",
+							"width",
+						];
+					},
 
-          /**
-           * Wrap HTML in email-safe doctype and structure
-           */
-          wrapInEmailLayout(content: string, options?: {
-            title?: string;
-            preheader?: string;
-            backgroundColor?: string;
-          }): string {
-            const { title = '', preheader = '', backgroundColor = '#f4f4f4' } = options ?? {};
+					/**
+					 * Wrap HTML in email-safe doctype and structure
+					 */
+					wrapInEmailLayout(
+						content: string,
+						options?: {
+							title?: string;
+							preheader?: string;
+							backgroundColor?: string;
+						},
+					): string {
+						const {
+							title = "",
+							preheader = "",
+							backgroundColor = "#f4f4f4",
+						} = options ?? {};
 
-            return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+						return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -124,7 +133,7 @@ export const emailPreset: Preset = (options?: EmailPresetOptions): PresetConfig 
   <![endif]-->
 </head>
 <body style="margin: 0; padding: 0; background-color: ${backgroundColor};">
-  ${preheader ? `<div style="display: none; max-height: 0; overflow: hidden;">${preheader}</div>` : ''}
+  ${preheader ? `<div style="display: none; max-height: 0; overflow: hidden;">${preheader}</div>` : ""}
   <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color: ${backgroundColor};">
     <tr>
       <td align="center">
@@ -140,11 +149,11 @@ export const emailPreset: Preset = (options?: EmailPresetOptions): PresetConfig 
   </table>
 </body>
 </html>`;
-          },
-        }),
-      },
-    ],
-  };
+					},
+				}),
+			},
+		],
+	};
 };
 
 export default emailPreset;

@@ -1,22 +1,22 @@
 ---
 interface Props {
-  title: string;
-  description?: string;
-  primaryText: string;
-  primaryHref: string;
-  secondaryText?: string;
-  secondaryHref?: string;
-  variant?: 'default' | 'dark' | 'gradient';
+	title: string;
+	description?: string;
+	primaryText: string;
+	primaryHref: string;
+	secondaryText?: string;
+	secondaryHref?: string;
+	variant?: "default" | "dark" | "gradient";
 }
 
 const {
-  title,
-  description = '',
-  primaryText,
-  primaryHref,
-  secondaryText = '',
-  secondaryHref = '',
-  variant = 'default'
+	title,
+	description = "",
+	primaryText,
+	primaryHref,
+	secondaryText = "",
+	secondaryHref = "",
+	variant = "default",
 } = Astro.props;
 ---
 

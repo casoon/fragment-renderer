@@ -1,11 +1,11 @@
 ---
 interface Props {
-  title: string;
-  content: string;
-  theme?: 'light' | 'dark';
+	title: string;
+	content: string;
+	theme?: "light" | "dark";
 }
 
-const { title, content, theme = 'light' } = Astro.props;
+const { title, content, theme = "light" } = Astro.props;
 ---
 
 <div class={`widget ${theme}`}>

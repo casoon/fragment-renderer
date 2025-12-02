@@ -1,17 +1,17 @@
 ---
 interface Props {
-  message: string;
-  type?: 'info' | 'success' | 'warning' | 'error';
-  dismissible?: boolean;
+	message: string;
+	type?: "info" | "success" | "warning" | "error";
+	dismissible?: boolean;
 }
 
-const { message, type = 'info', dismissible = false } = Astro.props;
+const { message, type = "info", dismissible = false } = Astro.props;
 
 const typeStyles = {
-  info: { bg: '#e0f2fe', border: '#0284c7', text: '#0c4a6e', icon: 'i' },
-  success: { bg: '#dcfce7', border: '#16a34a', text: '#14532d', icon: '✓' },
-  warning: { bg: '#fef3c7', border: '#d97706', text: '#78350f', icon: '!' },
-  error: { bg: '#fee2e2', border: '#dc2626', text: '#7f1d1d', icon: '✕' },
+	info: { bg: "#e0f2fe", border: "#0284c7", text: "#0c4a6e", icon: "i" },
+	success: { bg: "#dcfce7", border: "#16a34a", text: "#14532d", icon: "✓" },
+	warning: { bg: "#fef3c7", border: "#d97706", text: "#78350f", icon: "!" },
+	error: { bg: "#fee2e2", border: "#dc2626", text: "#7f1d1d", icon: "✕" },
 };
 
 const style = typeStyles[type];

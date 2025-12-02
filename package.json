@@ -1,92 +1,97 @@
 {
-  "name": "@casoon/fragment-renderer",
-  "version": "0.1.0",
-  "description": "Universal Astro Fragment Renderer - render Astro components as HTML fragments for HTMX, email, and multi-channel output.",
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
-    "./adapters/node": {
-      "types": "./dist/adapters/node.d.ts",
-      "import": "./dist/adapters/node.js"
-    },
-    "./adapters/cloudflare": {
-      "types": "./dist/adapters/cloudflare.d.ts",
-      "import": "./dist/adapters/cloudflare.js"
-    },
-    "./adapters/vercel": {
-      "types": "./dist/adapters/vercel.d.ts",
-      "import": "./dist/adapters/vercel.js"
-    },
-    "./adapters/cli": {
-      "types": "./dist/adapters/cli.d.ts",
-      "import": "./dist/adapters/cli.js"
-    },
-    "./presets/aha-stack": {
-      "types": "./dist/presets/aha-stack.d.ts",
-      "import": "./dist/presets/aha-stack.js"
-    },
-    "./presets/email": {
-      "types": "./dist/presets/email.d.ts",
-      "import": "./dist/presets/email.js"
-    },
-    "./presets/cms": {
-      "types": "./dist/presets/cms.d.ts",
-      "import": "./dist/presets/cms.js"
-    }
-  },
-  "files": [
-    "dist",
-    "LICENSE",
-    "README.md"
-  ],
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "test": "vitest",
-    "prepublishOnly": "npm run build",
-    "test:run": "vitest run",
-    "lint": "tsc --noEmit"
-  },
-  "keywords": [
-    "astro",
-    "astrojs",
-    "container",
-    "runtime",
-    "ssr",
-    "components",
-    "htmx",
-    "alpine",
-    "aha-stack",
-    "email",
-    "edge",
-    "fragments",
-    "partial-rendering"
-  ],
-  "author": "casoon",
-  "license": "MIT",
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "peerDependencies": {
-    "astro": ">=4.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.10.0",
-    "astro": "^4.0.0",
-    "typescript": "^5.3.0",
-    "vitest": "^1.0.0"
-  },
-  "homepage": "https://github.com/casoon/fragment-renderer#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/casoon/fragment-renderer.git"
-  },
-  "bugs": {
-    "url": "https://github.com/casoon/fragment-renderer/issues"
-  }
+	"name": "@casoon/fragment-renderer",
+	"version": "0.1.1",
+	"description": "Universal Astro Fragment Renderer - render Astro components as HTML fragments for HTMX, email, and multi-channel output.",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./adapters/node": {
+			"types": "./dist/adapters/node.d.ts",
+			"import": "./dist/adapters/node.js"
+		},
+		"./adapters/cloudflare": {
+			"types": "./dist/adapters/cloudflare.d.ts",
+			"import": "./dist/adapters/cloudflare.js"
+		},
+		"./adapters/vercel": {
+			"types": "./dist/adapters/vercel.d.ts",
+			"import": "./dist/adapters/vercel.js"
+		},
+		"./adapters/cli": {
+			"types": "./dist/adapters/cli.d.ts",
+			"import": "./dist/adapters/cli.js"
+		},
+		"./presets/aha-stack": {
+			"types": "./dist/presets/aha-stack.d.ts",
+			"import": "./dist/presets/aha-stack.js"
+		},
+		"./presets/email": {
+			"types": "./dist/presets/email.d.ts",
+			"import": "./dist/presets/email.js"
+		},
+		"./presets/cms": {
+			"types": "./dist/presets/cms.d.ts",
+			"import": "./dist/presets/cms.js"
+		}
+	},
+	"files": [
+		"dist",
+		"LICENSE",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc --watch",
+		"test": "vitest",
+		"test:run": "vitest run",
+		"lint": "biome check .",
+		"lint:fix": "biome check --write .",
+		"format": "biome format --write .",
+		"prepare": "husky",
+		"prepublishOnly": "pnpm run build"
+	},
+	"keywords": [
+		"astro",
+		"astrojs",
+		"container",
+		"runtime",
+		"ssr",
+		"components",
+		"htmx",
+		"alpine",
+		"aha-stack",
+		"email",
+		"edge",
+		"fragments",
+		"partial-rendering"
+	],
+	"author": "casoon",
+	"license": "MIT",
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"peerDependencies": {
+		"astro": ">=4.0.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.3.8",
+		"@types/node": "^20.10.0",
+		"astro": "^4.0.0",
+		"husky": "^9.1.7",
+		"typescript": "^5.3.0",
+		"vitest": "^1.0.0"
+	},
+	"homepage": "https://github.com/casoon/fragment-renderer#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/casoon/fragment-renderer.git"
+	},
+	"bugs": {
+		"url": "https://github.com/casoon/fragment-renderer/issues"
+	}
 }

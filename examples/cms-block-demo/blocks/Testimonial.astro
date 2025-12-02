@@ -1,19 +1,13 @@
 ---
 interface Props {
-  quote: string;
-  author: string;
-  role?: string;
-  company?: string;
-  avatar?: string;
+	quote: string;
+	author: string;
+	role?: string;
+	company?: string;
+	avatar?: string;
 }
 
-const {
-  quote,
-  author,
-  role = '',
-  company = '',
-  avatar = ''
-} = Astro.props;
+const { quote, author, role = "", company = "", avatar = "" } = Astro.props;
 ---
 
 <section class="testimonial">

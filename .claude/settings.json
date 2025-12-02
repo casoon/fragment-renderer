@@ -1,1 +1,6 @@
-{"project":{"name":"fragment-renderer","description":"Universal Astro Fragment Renderer for HTMX, email, and multi-channel output"}}
+{
+	"project": {
+		"name": "fragment-renderer",
+		"description": "Universal Astro Fragment Renderer for HTMX, email, and multi-channel output"
+	}
+}

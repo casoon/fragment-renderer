@@ -1,18 +1,18 @@
 ---
 interface PriceTier {
-  name: string;
-  price: string;
-  features: string[];
-  highlighted?: boolean;
-  cta?: string;
+	name: string;
+	price: string;
+	features: string[];
+	highlighted?: boolean;
+	cta?: string;
 }
 
 interface Props {
-  tiers: PriceTier[];
-  title?: string;
+	tiers: PriceTier[];
+	title?: string;
 }
 
-const { tiers, title = 'Preise' } = Astro.props;
+const { tiers, title = "Preise" } = Astro.props;
 ---
 
 <section class="pricing">

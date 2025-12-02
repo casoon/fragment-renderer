@@ -1,13 +1,13 @@
 {
-  "name": "email-demo",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "render": "node render-email.js",
-    "preview": "node preview-server.js"
-  },
-  "dependencies": {
-    "astro": "^4.0.0",
-    "astrojs-container-runtime": "file:../.."
-  }
+	"name": "email-demo",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"render": "node render-email.js",
+		"preview": "node preview-server.js"
+	},
+	"dependencies": {
+		"astro": "^4.0.0",
+		"astrojs-container-runtime": "file:../.."
+	}
 }

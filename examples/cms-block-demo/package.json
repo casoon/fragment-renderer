@@ -1,13 +1,13 @@
 {
-  "name": "cms-block-demo",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "node server.js",
-    "render": "node render-blocks.js"
-  },
-  "dependencies": {
-    "astro": "^4.0.0",
-    "astrojs-container-runtime": "file:../.."
-  }
+	"name": "cms-block-demo",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "node server.js",
+		"render": "node render-blocks.js"
+	},
+	"dependencies": {
+		"astro": "^4.0.0",
+		"astrojs-container-runtime": "file:../.."
+	}
 }

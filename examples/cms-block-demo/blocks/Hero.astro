@@ -1,20 +1,20 @@
 ---
 interface Props {
-  title: string;
-  subtitle?: string;
-  backgroundImage?: string;
-  ctaText?: string;
-  ctaHref?: string;
-  align?: 'left' | 'center' | 'right';
+	title: string;
+	subtitle?: string;
+	backgroundImage?: string;
+	ctaText?: string;
+	ctaHref?: string;
+	align?: "left" | "center" | "right";
 }
 
 const {
-  title,
-  subtitle = '',
-  backgroundImage = '',
-  ctaText = '',
-  ctaHref = '#',
-  align = 'center'
+	title,
+	subtitle = "",
+	backgroundImage = "",
+	ctaText = "",
+	ctaHref = "#",
+	align = "center",
 } = Astro.props;
 
 const alignClass = `text-${align}`;

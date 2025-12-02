@@ -1,28 +1,28 @@
 ---
 interface OrderItem {
-  name: string;
-  quantity: number;
-  price: string;
+	name: string;
+	quantity: number;
+	price: string;
 }
 
 interface Props {
-  orderNumber: string;
-  customerName: string;
-  items: OrderItem[];
-  subtotal: string;
-  shipping: string;
-  total: string;
-  shippingAddress: string;
+	orderNumber: string;
+	customerName: string;
+	items: OrderItem[];
+	subtotal: string;
+	shipping: string;
+	total: string;
+	shippingAddress: string;
 }
 
 const {
-  orderNumber,
-  customerName,
-  items,
-  subtotal,
-  shipping,
-  total,
-  shippingAddress
+	orderNumber,
+	customerName,
+	items,
+	subtotal,
+	shipping,
+	total,
+	shippingAddress,
 } = Astro.props;
 ---
 

@@ -1,140 +1,147 @@
-import type { Preset, PresetConfig, RegistryEntry } from '../types.js';
+import type { Preset, PresetConfig, RegistryEntry } from "../types.js";
 
 /**
  * CMS preset configuration options
  */
 export interface CMSPresetOptions {
-  /** Default locale (default: 'en') */
-  locale?: string;
-  /** CMS provider name */
-  provider?: string;
-  /** Block component prefix (default: 'blocks.') */
-  blockPrefix?: string;
-  /** Pre-registered block components */
-  blocks?: RegistryEntry[];
+	/** Default locale (default: 'en') */
+	locale?: string;
+	/** CMS provider name */
+	provider?: string;
+	/** Block component prefix (default: 'blocks.') */
+	blockPrefix?: string;
+	/** Pre-registered block components */
+	blocks?: RegistryEntry[];
 }
 
 /**
  * CMS / Headless preset
  */
 export const cmsPreset: Preset = (options?: CMSPresetOptions): PresetConfig => {
-  const {
-    locale = 'en',
-    provider = 'generic',
-    blockPrefix = 'blocks.',
-    blocks = [],
-  } = options ?? {};
+	const {
+		locale = "en",
+		provider = "generic",
+		blockPrefix = "blocks.",
+		blocks = [],
+	} = options ?? {};
 
-  return {
-    baseContext: {
-      locale,
-      channel: 'web',
-      provider,
-      isHeadless: true,
-    },
-    components: blocks,
-    services: [
-      {
-        name: 'cms',
-        factory: (runtime) => {
-          const service = {
-            /**
-             * Render a CMS block by type
-             */
-            async renderBlock(
-              blockType: string,
-              data: Record<string, unknown>,
-              channel?: string
-            ): Promise<string> {
-              const componentId = blockType.startsWith(blockPrefix)
-                ? blockType
-                : `${blockPrefix}${blockType}`;
+	return {
+		baseContext: {
+			locale,
+			channel: "web",
+			provider,
+			isHeadless: true,
+		},
+		components: blocks,
+		services: [
+			{
+				name: "cms",
+				factory: (runtime) => {
+					const service = {
+						/**
+						 * Render a CMS block by type
+						 */
+						async renderBlock(
+							blockType: string,
+							data: Record<string, unknown>,
+							channel?: string,
+						): Promise<string> {
+							const componentId = blockType.startsWith(blockPrefix)
+								? blockType
+								: `${blockPrefix}${blockType}`;
 
-              return runtime.renderToString({
-                componentId,
-                props: data,
-                context: channel ? { channel } : undefined,
-              });
-            },
+							return runtime.renderToString({
+								componentId,
+								props: data,
+								context: channel ? { channel } : undefined,
+							});
+						},
 
-            /**
-             * Render multiple blocks in sequence
-             */
-            async renderBlocks(
-              blocks: Array<{ type: string; data: Record<string, unknown> }>,
-              channel?: string
-            ): Promise<string> {
-              const rendered = await Promise.all(
-                blocks.map((block) => service.renderBlock(block.type, block.data, channel))
-              );
-              return rendered.join('\n');
-            },
+						/**
+						 * Render multiple blocks in sequence
+						 */
+						async renderBlocks(
+							blocks: Array<{ type: string; data: Record<string, unknown> }>,
+							channel?: string,
+						): Promise<string> {
+							const rendered = await Promise.all(
+								blocks.map((block) =>
+									service.renderBlock(block.type, block.data, channel),
+								),
+							);
+							return rendered.join("\n");
+						},
 
-            /**
-             * Check if a block type is registered
-             */
-            hasBlock(blockType: string): boolean {
-              const componentId = blockType.startsWith(blockPrefix)
-                ? blockType
-                : `${blockPrefix}${blockType}`;
-              return runtime.getComponent(componentId) !== undefined;
-            },
+						/**
+						 * Check if a block type is registered
+						 */
+						hasBlock(blockType: string): boolean {
+							const componentId = blockType.startsWith(blockPrefix)
+								? blockType
+								: `${blockPrefix}${blockType}`;
+							return runtime.getComponent(componentId) !== undefined;
+						},
 
-            /**
-             * List all registered block types
-             */
-            listBlocks(): string[] {
-              return runtime
-                .listComponents()
-                .filter((entry) => entry.id.startsWith(blockPrefix))
-                .map((entry) => entry.id.replace(blockPrefix, ''));
-            },
+						/**
+						 * List all registered block types
+						 */
+						listBlocks(): string[] {
+							return runtime
+								.listComponents()
+								.filter((entry) => entry.id.startsWith(blockPrefix))
+								.map((entry) => entry.id.replace(blockPrefix, ""));
+						},
 
-            /**
-             * Create a page from an array of blocks
-             */
-            async renderPage(
-              blocks: Array<{ type: string; data: Record<string, unknown> }>,
-              options?: {
-                channel?: string;
-                wrapper?: {
-                  componentId: string;
-                  props?: Record<string, unknown>;
-                };
-              }
-            ): Promise<string> {
-              const content = await service.renderBlocks(blocks, options?.channel);
+						/**
+						 * Create a page from an array of blocks
+						 */
+						async renderPage(
+							blocks: Array<{ type: string; data: Record<string, unknown> }>,
+							options?: {
+								channel?: string;
+								wrapper?: {
+									componentId: string;
+									props?: Record<string, unknown>;
+								};
+							},
+						): Promise<string> {
+							const content = await service.renderBlocks(
+								blocks,
+								options?.channel,
+							);
 
-              if (options?.wrapper) {
-                return runtime.renderToString({
-                  componentId: options.wrapper.componentId,
-                  props: {
-                    ...options.wrapper.props,
-                    content,
-                  },
-                  context: options?.channel ? { channel: options.channel } : undefined,
-                });
-              }
+							if (options?.wrapper) {
+								return runtime.renderToString({
+									componentId: options.wrapper.componentId,
+									props: {
+										...options.wrapper.props,
+										content,
+									},
+									context: options?.channel
+										? { channel: options.channel }
+										: undefined,
+								});
+							}
 
-              return content;
-            },
+							return content;
+						},
 
-            /**
-             * Transform CMS data to block props
-             */
-            transformData(
-              cmsData: Record<string, unknown>,
-              _blockType: string
-            ): Record<string, unknown> {
-              return cmsData;
-            },
-          };
+						/**
+						 * Transform CMS data to block props
+						 */
+						transformData(
+							cmsData: Record<string, unknown>,
+							_blockType: string,
+						): Record<string, unknown> {
+							return cmsData;
+						},
+					};
 
-          return service;
-        },
-      },
-    ],
-  };
+					return service;
+				},
+			},
+		],
+	};
 };
 
 export default cmsPreset;

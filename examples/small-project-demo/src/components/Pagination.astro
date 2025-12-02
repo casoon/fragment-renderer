@@ -1,43 +1,43 @@
 ---
 interface Props {
-  currentPage: number;
-  totalPages: number;
-  baseUrl?: string;
-  htmxTarget?: string;
+	currentPage: number;
+	totalPages: number;
+	baseUrl?: string;
+	htmxTarget?: string;
 }
 
 const {
-  currentPage,
-  totalPages,
-  baseUrl = '/api/items',
-  htmxTarget = '#content'
+	currentPage,
+	totalPages,
+	baseUrl = "/api/items",
+	htmxTarget = "#content",
 } = Astro.props;
 
 const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 const showEllipsis = totalPages > 7;
 
 function getVisiblePages() {
-  if (!showEllipsis) return pages;
+	if (!showEllipsis) return pages;
 
-  const visible: (number | 'ellipsis')[] = [];
+	const visible: (number | "ellipsis")[] = [];
 
-  if (currentPage <= 4) {
-    visible.push(...pages.slice(0, 5));
-    visible.push('ellipsis');
-    visible.push(totalPages);
-  } else if (currentPage >= totalPages - 3) {
-    visible.push(1);
-    visible.push('ellipsis');
-    visible.push(...pages.slice(-5));
-  } else {
-    visible.push(1);
-    visible.push('ellipsis');
-    visible.push(currentPage - 1, currentPage, currentPage + 1);
-    visible.push('ellipsis');
-    visible.push(totalPages);
-  }
+	if (currentPage <= 4) {
+		visible.push(...pages.slice(0, 5));
+		visible.push("ellipsis");
+		visible.push(totalPages);
+	} else if (currentPage >= totalPages - 3) {
+		visible.push(1);
+		visible.push("ellipsis");
+		visible.push(...pages.slice(-5));
+	} else {
+		visible.push(1);
+		visible.push("ellipsis");
+		visible.push(currentPage - 1, currentPage, currentPage + 1);
+		visible.push("ellipsis");
+		visible.push(totalPages);
+	}
 
-  return visible;
+	return visible;
 }
 
 const visiblePages = getVisiblePages();

@@ -1,13 +1,13 @@
 {
-  "name": "og-preview-demo",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "generate": "node generate-og.js",
-    "preview": "node preview-server.js"
-  },
-  "dependencies": {
-    "astro": "^4.0.0",
-    "astrojs-container-runtime": "file:../.."
-  }
+	"name": "og-preview-demo",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"generate": "node generate-og.js",
+		"preview": "node preview-server.js"
+	},
+	"dependencies": {
+		"astro": "^4.0.0",
+		"astrojs-container-runtime": "file:../.."
+	}
 }

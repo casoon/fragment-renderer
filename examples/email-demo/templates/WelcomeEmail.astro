@@ -1,15 +1,11 @@
 ---
 interface Props {
-  userName: string;
-  activationLink: string;
-  companyName?: string;
+	userName: string;
+	activationLink: string;
+	companyName?: string;
 }
 
-const {
-  userName,
-  activationLink,
-  companyName = 'Unser Service'
-} = Astro.props;
+const { userName, activationLink, companyName = "Unser Service" } = Astro.props;
 ---
 
 <html>
