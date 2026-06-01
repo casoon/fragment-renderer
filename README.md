@@ -2,7 +2,7 @@
 
 Universal Astro Container Runtime - render Astro components outside of classic Astro pages.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue-blue.svg)](https://www.gnu.org/licenses/mit)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
 
