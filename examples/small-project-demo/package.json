@@ -10,6 +10,7 @@
 	},
 	"dependencies": {
 		"astro": "^4.0.0",
-		"astrojs-container-runtime": "file:../.."
+		"@astrojs/node": "^8.0.0",
+		"@casoon/fragment-renderer": "file:../.."
 	}
 }

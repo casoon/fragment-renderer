@@ -64,7 +64,7 @@ export function createNodeRouteHandler(
 	} = options;
 
 	return async function routeHandler(
-		req: IncomingMessage,
+		_req: IncomingMessage,
 		res: ServerResponse,
 		componentId: string,
 		props?: Record<string, unknown>,

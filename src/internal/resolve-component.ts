@@ -1,5 +1,5 @@
 import type { AstroComponentFactory } from "astro/runtime/server/index.js";
-import type { ComponentLoader, RegistryEntry } from "../types.js";
+import type { RegistryEntry } from "../types.js";
 
 /**
  * Cache for resolved components

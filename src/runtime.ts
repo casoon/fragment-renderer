@@ -98,6 +98,7 @@ class AstroRuntimeImpl implements AstroRuntime {
 		id: string,
 		loader: ComponentLoader,
 		meta?: ComponentMeta,
+		styles?: string,
 	): void {
 		if (!id || typeof id !== "string") {
 			throw new Error("Component ID must be a non-empty string");
@@ -106,7 +107,7 @@ class AstroRuntimeImpl implements AstroRuntime {
 			throw new Error("Component loader must be a function");
 		}
 
-		this.registry.set(id, { id, loader, meta });
+		this.registry.set(id, { id, loader, meta, styles });
 	}
 
 	registerComponents(entries: RegistryEntry[]): void {

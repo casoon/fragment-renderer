@@ -37,22 +37,16 @@ export default {
 		try {
 			switch (pathname) {
 				case "/widget": {
-					const component = await runtime.getComponent("widget");
-					if (!component) {
+					const entry = runtime.getComponent("widget");
+					if (!entry) {
 						return new Response("Widget component not found", { status: 404 });
 					}
-					const html = await runtime.renderToString({
-						componentId: "widget",
-						props: {
-							title: props.title || "Widget Title",
-							content: props.content || "Widget content goes here",
-						},
-					});
-					return new Response(html, {
-						headers: {
-							"Content-Type": "text/html; charset=utf-8",
-							"Cache-Control": "public, max-age=3600",
-						},
+					// Resolve the component dynamically from its loader
+					const module = await entry.loader();
+					// Use the generated handler to render the component directly to a Cloudflare Response
+					return handler(module.default, {
+						title: props.title || "Widget Title",
+						content: props.content || "Widget content goes here",
 					});
 				}
 

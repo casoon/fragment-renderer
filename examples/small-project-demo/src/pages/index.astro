@@ -1,0 +1,133 @@
+---
+import PriceTable from "../components/PriceTable.astro";
+
+// Enable SSR for this page
+export const prerender = false;
+---
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astro + HTMX Fragment Renderer Demo</title>
+  <!-- Load HTMX -->
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --border: #334155;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    main {
+      flex: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .demo-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    button.load-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    button.load-btn:hover {
+      opacity: 0.9;
+    }
+    .loading-indicator {
+      display: none;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+    .htmx-request .loading-indicator {
+      display: block;
+    }
+    #faq-container, #products-container {
+      margin-top: 1.5rem;
+      min-height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Astro + HTMX Fragment Renderer Demo</h1>
+    <p style="color: var(--text-muted);">Komponenten-Rendering auf Anfrage im selben Projekt</p>
+  </header>
+  <main>
+    <div class="demo-section">
+      <h2>1. Statisch gerenderte Preistabelle</h2>
+      <PriceTable
+        plans={[
+          { name: "Basic", price: "0 €", features: ["1 Benutzer", "Community Support", "100MB Speicher"] },
+          { name: "Pro", price: "19 €", features: ["5 Benutzer", "Email Support", "10GB Speicher", "API Zugriff"], popular: true },
+          { name: "Enterprise", price: "99 €", features: ["Unbegrenzt", "24/7 Support", "1TB Speicher", "Dedizierter Server"] }
+        ]}
+      />
+    </div>
+
+    <div class="demo-section">
+      <h2>2. Dynamisch geladenes FAQ (HTMX Fragment)</h2>
+      <p style="color: var(--text-muted); margin-bottom: 1rem;">
+        Klicke auf den Button unten, um ein FAQ-Fragment von einem API-Endpoint zu laden. Der API-Endpoint nutzt den <code>AstroRuntime</code>-Renderer.
+      </p>
+      <button
+        class="load-btn"
+        hx-get="/api/faq"
+        hx-target="#faq-container"
+        hx-swap="innerHTML"
+        hx-indicator="#faq-indicator"
+      >
+        FAQ laden
+      </button>
+      <div id="faq-indicator" class="loading-indicator">Lade FAQ...</div>
+      <div id="faq-container"></div>
+    </div>
+
+    <div class="demo-section">
+      <h2>3. Paginierte Produktliste (HTMX & Astro)</h2>
+      <p style="color: var(--text-muted); margin-bottom: 1rem;">
+        Diese Produktliste wird serverseitig gerendert und via HTMX seitenweise nachgeladen.
+      </p>
+      <div
+        hx-get="/api/products/1"
+        hx-trigger="load"
+        hx-target="#products-container"
+        hx-swap="innerHTML"
+      >
+        <div id="products-container">Lade Produkte...</div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

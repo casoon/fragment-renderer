@@ -6,7 +6,7 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"includes": ["**", "!!**/dist"]
+		"includes": ["src/**/*", "package.json", "tsconfig.json", "biome.json"]
 	},
 	"formatter": {
 		"enabled": true,

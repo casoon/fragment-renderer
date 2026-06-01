@@ -156,6 +156,7 @@ export interface AstroRuntime {
 		id: string,
 		loader: ComponentLoader,
 		meta?: ComponentMeta,
+		styles?: string,
 	): void;
 
 	/**

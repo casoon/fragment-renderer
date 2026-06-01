@@ -1,0 +1,84 @@
+---
+import Pagination from "./Pagination.astro";
+
+interface Product {
+	id: number;
+	name: string;
+	price: string;
+	description: string;
+}
+
+interface Props {
+	products: Product[];
+	currentPage: number;
+	totalPages: number;
+}
+
+const { products, currentPage, totalPages } = Astro.props;
+---
+
+<div class="product-list-container">
+  <div class="product-grid">
+    {products.map((product) => (
+      <div class="product-card">
+        <h3>{product.name}</h3>
+        <p class="price">{product.price}</p>
+        <p class="desc">{product.description}</p>
+      </div>
+    ))}
+  </div>
+
+  <div class="pagination-wrapper">
+    <Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      baseUrl="/api/products"
+      htmxTarget="#products-container"
+    />
+  </div>
+</div>
+
+<style>
+  .product-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .product-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    padding: 1.25rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .product-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+  }
+
+  .product-card .price {
+    color: #3b82f6;
+    font-weight: 700;
+    margin: 0 0 0.75rem;
+  }
+
+  .product-card .desc {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .pagination-wrapper {
+    margin-top: 1rem;
+    border-top: 1px solid #334155;
+    padding-top: 1rem;
+  }
+</style>
