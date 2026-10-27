@@ -1,0 +1,97 @@
+---
+import {
+  Badge,
+  Badges,
+  BuildOutput,
+  CodeBlock,
+  Facts,
+  Features,
+  Hero,
+  Install,
+  Quickstart,
+  Terminal,
+} from '@casoon/pages-theme/components';
+import Base from '@casoon/pages-theme/layouts/Base.astro';
+import { escapeHtml, fragment, pretty } from '../render';
+
+const quick = `import { createAstroRuntime } from '@casoon/fragment-renderer';
+import Banner from './Banner.astro';
+
+const runtime = createAstroRuntime();
+
+const html = await runtime.renderComponent(Banner, {
+  message: 'Important announcement!',
+  type: 'info',
+});
+
+const response = await runtime.renderToResponse(Banner, { message: 'Saved' });`;
+const shown = escapeHtml(pretty(fragment));
+---
+
+<Base>
+  <Hero
+    title="Astro components, rendered without an Astro page."
+    lead="A thin runtime around Astro's Container API. Pass a component and props, get HTML or a Response back: for HTMX fragments, emails, OG cards, CMS blocks and edge handlers."
+  >
+    <Install
+      commands={[
+        { label: 'npm', command: 'npm install @casoon/fragment-renderer' },
+        { label: 'pnpm', command: 'pnpm add @casoon/fragment-renderer' },
+      ]}
+    />
+    <Badges>
+      <Badge>MIT</Badge>
+      <Badge>Astro ≥ 4</Badge>
+      <Badge>Node.js ≥ 18</Badge>
+    </Badges>
+    <Terminal slot="output" title="renderComponent(Banner, { type: 'info' })" dots><Fragment set:html={shown} /></Terminal>
+  </Hero>
+
+  <Facts
+    items={[
+      { value: '3', label: 'presets: HTMX, email, CMS blocks' },
+      { value: '4', label: 'adapters: Node.js, Cloudflare, Vercel, CLI' },
+      { value: '0', label: 'runtime dependencies besides the Astro peer' },
+      { value: '4', label: 'example components rendered during this site\'s build' },
+    ]}
+  />
+
+  <Features
+    items={[
+      {
+        title: 'Zero config',
+        body: '<code>createAstroRuntime()</code> works without options. Registry, services and presets are there when you need them.',
+      },
+      {
+        title: 'Registry by ID',
+        body: 'Map IDs to lazily imported components, with category and tags for filtering. A CMS block type becomes a component lookup.',
+      },
+      {
+        title: 'One component, several channels',
+        body: 'A context with <code>locale</code> and <code>channel</code> reaches the component as a prop, so one source can produce web, email or OG markup.',
+      },
+      {
+        title: 'Handlers for the platform',
+        body: 'Adapters build the response for Node.js, Cloudflare Workers and Vercel, and write files from a script.',
+      },
+    ]}
+  />
+
+  <BuildOutput
+    caption="The Banner component from the repository's examples, rendered by the runtime while this site was built. Markup is indented here for reading only."
+    file="examples/cloudflare-worker-demo/src/components/Banner.astro"
+  >
+    <Terminal><Fragment set:html={shown} /></Terminal>
+  </BuildOutput>
+
+  <Quickstart
+    lead="Install the package, render a component, return the result. Registry, presets and adapters are covered in the documentation."
+    steps={[
+      'Install <code>@casoon/fragment-renderer</code>; Astro is a peer dependency.',
+      'Create a runtime and call <code>renderComponent</code> or <code>renderToResponse</code>.',
+      'Add a registry, a preset or an adapter when the project needs one.',
+    ]}
+  >
+    <CodeBlock code={quick} lang="ts" title="render.ts" label="TypeScript" />
+  </Quickstart>
+</Base>

@@ -1,0 +1,58 @@
+---
+title: Installation
+description: One npm package with Astro as a peer dependency.
+order: 1
+---
+
+<Tabs
+  label="Package manager"
+  tabs={[
+    { id: 'npm', label: 'npm' },
+    { id: 'pnpm', label: 'pnpm' },
+  ]}
+>
+<div slot="npm">
+
+```sh
+npm install @casoon/fragment-renderer
+```
+
+</div>
+<div slot="pnpm">
+
+```sh
+pnpm add @casoon/fragment-renderer
+```
+
+</div>
+</Tabs>
+
+## Requirements
+
+| Requirement | Version |
+| --- | --- |
+| Node.js | `>= 18.0.0` |
+| Astro (peer dependency) | `>= 4.0.0` |
+| Module format | ES modules only (`"type": "module"`) |
+
+The package ships TypeScript declarations. Its repository is built with TypeScript strict mode and
+developed against Astro 6.
+
+<Callout type="caution">
+The runtime is built on Astro's `experimental_AstroContainer`. The name says it: Astro may change
+that API between versions. The wrapper in `src/internal/container.ts` is the one place that
+touches it.
+</Callout>
+
+## Entry points
+
+| Import | Contents |
+| --- | --- |
+| `@casoon/fragment-renderer` | `createAstroRuntime` and all types |
+| `@casoon/fragment-renderer/presets/aha-stack` | `ahaStackPreset` |
+| `@casoon/fragment-renderer/presets/email` | `emailPreset` |
+| `@casoon/fragment-renderer/presets/cms` | `cmsPreset` |
+| `@casoon/fragment-renderer/adapters/node` | `createNodeHandler`, `createNodeRouteHandler`, `parseQueryProps` |
+| `@casoon/fragment-renderer/adapters/cloudflare` | `createCloudflareHandler`, `createCloudflareRouteHandler`, `parseWorkerRequest` |
+| `@casoon/fragment-renderer/adapters/vercel` | `createVercelHandler`, `createVercelServerlessHandler` |
+| `@casoon/fragment-renderer/adapters/cli` | `createCLIRenderer`, `runCLI` |
