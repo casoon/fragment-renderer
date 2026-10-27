@@ -1,6 +1,6 @@
 {
 	"name": "@casoon/fragment-renderer",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Universal Astro Fragment Renderer - render Astro components as HTML fragments for HTMX, email, and multi-channel output.",
 	"type": "module",
 	"main": "./dist/index.js",
@@ -72,6 +72,7 @@
 	],
 	"author": "casoon",
 	"license": "MIT",
+	"packageManager": "pnpm@10.26.0",
 	"engines": {
 		"node": ">=18.0.0"
 	},
