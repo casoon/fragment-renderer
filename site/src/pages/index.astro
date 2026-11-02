@@ -3,6 +3,7 @@ import {
   Badge,
   Badges,
   BuildOutput,
+  CallToAction,
   CodeBlock,
   Facts,
   Features,
@@ -12,6 +13,7 @@ import {
   Terminal,
 } from '@casoon/pages-theme/components';
 import Base from '@casoon/pages-theme/layouts/Base.astro';
+import { url } from '@casoon/pages-theme/url';
 import { escapeHtml, fragment, pretty } from '../render';
 
 const quick = `import { createAstroRuntime } from '@casoon/fragment-renderer';
@@ -94,4 +96,10 @@ const shown = escapeHtml(pretty(fragment));
   >
     <CodeBlock code={quick} lang="ts" title="render.ts" label="TypeScript" />
   </Quickstart>
+
+  <CallToAction
+    title="Render your first component."
+    href={url('docs/getting-started/quickstart/')}
+    label="Read the quickstart"
+  />
 </Base>

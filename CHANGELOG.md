@@ -7,6 +7,11 @@ contain breaking changes.
 
 ## [Unreleased]
 
+### Changed
+
+- **Pages:** the project site uses the current shared theme (0.12.3) and ends with a link to the
+  quickstart.
+
 ## [0.2.1] - 2026-10-27
 
 ### Changed
