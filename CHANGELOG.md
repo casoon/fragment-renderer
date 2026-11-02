@@ -11,6 +11,8 @@ contain breaking changes.
 
 - **Pages:** the project site uses the current shared theme (0.12.3) and ends with a link to the
   quickstart.
+- **Contributors:** the Pages workflow takes the pnpm version from `packageManager` only, so the
+  site deploys again.
 
 ## [0.2.1] - 2026-10-27
 

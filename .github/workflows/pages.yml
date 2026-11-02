@@ -23,10 +23,8 @@ jobs:
       # The site renders ../src and ../examples directly (see astro.config.mjs), so no
       # separate package build is needed.
 
-      # Project repos have no package.json at the root, so the pnpm version is set here.
+      # pnpm version comes from packageManager in the root package.json.
       - uses: pnpm/action-setup@v6
-        with:
-          version: 10
 
       - uses: actions/setup-node@v7
         with:
