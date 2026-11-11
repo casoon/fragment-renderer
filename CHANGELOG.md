@@ -9,7 +9,7 @@ contain breaking changes.
 
 ### Changed
 
-- **Pages:** the project site uses the current shared theme (0.12.6) and ends with a link to the
+- **Pages:** the project site uses the current shared theme (0.12.8) and ends with a link to the
   quickstart.
 - **Contributors:** the Pages workflow takes the pnpm version from `packageManager` only, so the
   site deploys again.
