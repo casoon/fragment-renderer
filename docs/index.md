@@ -26,6 +26,25 @@ email clients, serve files or route requests. The channel `pdf` or `og` is a lab
 that your component can read; see [Channels](guides/channels/). The full list is under
 [Limits](reference/limits/).
 
+## When to use it, and how it differs from Astro API endpoints
+
+An Astro API endpoint runs inside an Astro app and its server. `createAstroRuntime()` renders
+components where there is no Astro page: in a Cloudflare Worker, a Node server, an email pipeline
+or a script. Inside an Astro app it works just as well in an API route, for example for HTMX
+responses.
+
+## In use
+
+- [Rechenkiste](https://rechenkiste.casoon.dev): maths exercises for primary school; tasks and
+  feedback arrive as HTMX fragments rendered from Astro components.
+- [aha-template](https://github.com/casoon/aha-template): starter for Astro, HTMX, Alpine.js and
+  Tailwind v4 that uses this runtime.
+- [aha-stack-example](https://github.com/casoon/aha-stack-example): a Kanban demo that renders its
+  fragments through the Container API directly, the principle this package wraps.
+
+Further reading: [AHA stack, Rechenkiste and fragment-renderer](https://insights.casoon.de/artikel/aha-stack-rechenkiste-fragment-renderer/)
+on CASOON Insights.
+
 ## How the docs are organised
 
 - **Getting started**: install the package and render a first component.

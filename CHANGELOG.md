@@ -7,6 +7,10 @@ contain breaking changes.
 
 ## [Unreleased]
 
+### Added
+
+- **Docs:** the overview explains when to use the runtime instead of an API endpoint, lists projects that use it and links the background article.
+
 ### Changed
 
 - **Pages:** the project site uses the current shared theme (0.12.14) and ends with a link to the
